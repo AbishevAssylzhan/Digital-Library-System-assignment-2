@@ -35,4 +35,15 @@ public class Library {
         System.out.println("Address: " + address);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        Library l = (Library) o;
+        return name.equals(l.name) && address.equals(l.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode() + address.hashCode();
+    }
+
 }

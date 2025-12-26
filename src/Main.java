@@ -30,5 +30,16 @@ public class Main {
         System.out.println();
 
         library2.displayInfo();
+        System.out.println();
+
+        Book printed = new PrintedBook(
+                "Abai Zholy",
+                "Mukhtar Auezov",
+                1942,
+                500
+        );
+
+        printed.displayInfo();
+
     }
 }

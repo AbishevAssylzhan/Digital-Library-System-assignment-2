@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Library_User {
     private String user;
     private int id;
@@ -34,4 +36,19 @@ public class Library_User {
         System.out.println("User: " + user);
         System.out.println("id: " + id);
     }
+    @Override
+    public String toString() {
+        return user + " (" + id + ")";
+    }
+    @Override
+    public boolean equals(Object o) {
+        Library_User user2 = (Library_User) o;
+        return id == user2.id && user.equals(user2.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return id + user.hashCode();
+    }
+
 }
