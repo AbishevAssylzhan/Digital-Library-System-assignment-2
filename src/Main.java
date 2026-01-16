@@ -1,45 +1,41 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.sql.*;
+
 public class Main {
     public static void main(String[] args) {
 
-        Book book1 = new Book();
-        Book book2 = new Book("Ushkan uya", "Baurzhan Momyshuly", 1956);
+        String url = "jdbc:postgresql://localhost:5432/Asyl3oop";
+        String user = "postgres";
+        String password = "8985";
 
+        try {
+            Class.forName("org.postgresql.Driver");
+            Connection con = DriverManager.getConnection(url, user, password);
+            Statement stmt = con.createStatement();
 
-        Library_User user1 = new Library_User();
-        Library_User user2 = new Library_User("Aruzhan", 2);
+            stmt.executeUpdate(
+                    "INSERT INTO book(name, author, year, pages) VALUES ('Abai Zholy', 'Mukhtar Auezov', 1942, 500)"
+            );
+            stmt.executeUpdate(
+                    "INSERT INTO book(name, author, year, pages) VALUES ('Ushkan uya', 'Baurzhan Momyshuly', 1956, NULL)"
+            );
 
+            ResultSet rs = stmt.executeQuery("SELECT * FROM book");
+            while (rs.next()) {
+                System.out.println(
+                        rs.getInt("id") + " | " +
+                                rs.getString("name") + " | " +
+                                rs.getString("author") + " | " +
+                                rs.getInt("year") + " | " +
+                                rs.getInt("pages")
+                );
+            }
 
-        Library library1 = new Library(); // без параметров
-        Library library2 = new Library("QR Ulttyk Kitaphanasy", "ABAI 14, Almaty");
+            rs.close();
+            stmt.close();
+            con.close();
 
-        book1.displayInfo();
-        System.out.println();
-
-        book2.displayInfo();
-        System.out.println();
-
-        user1.displayInfo();
-        System.out.println();
-
-        user2.displayInfo();
-        System.out.println();
-
-        library1.displayInfo();
-        System.out.println();
-
-        library2.displayInfo();
-        System.out.println();
-
-        Book printed = new PrintedBook(
-                "Abai Zholy",
-                "Mukhtar Auezov",
-                1942,
-                500
-        );
-
-        printed.displayInfo();
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
